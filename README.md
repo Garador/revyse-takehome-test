@@ -1,6 +1,13 @@
 # Custom set-up installation
 No custom set-up required.
 
+# Relevant Developer Notes
+* Extra carelessness has been taken in consideration: currently, public Firebase credentials are stored to run the project as-is. This should be parametrized and should not be commited. Only has been done for demo purposes.
+* Context API vs Redux API: The redux API has been implemented; however, due the size of the project, it is not a good idea. This was done merely for practice and demo purposes.
+* Testing: A lack of testing is present. Efforts were made to add them; however, in the interest of time, they were not ultimately added.
+* Single route and SPA: No additional routes for authentication were added to simplify the flow and the demo of the core functionality, focusing on FE. However, it is worth noting that, on cases where SEO and further server-based optimizations are required, additional routes could be added.
+* Data loading stub: A stub has been added as a data result and a timeout for 5 seconds implemented to simulate delays; this was made to simulate the data loading without exhausting the free credit calls given for the used API.
+
 ## Relevant Credentials
 
 email: azolotdev+test1@gmail.com
