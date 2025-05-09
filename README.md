@@ -7,6 +7,8 @@ No custom set-up required.
 * Testing: A lack of testing is present. Efforts were made to add them; however, in the interest of time, they were not ultimately added.
 * Single route and SPA: No additional routes for authentication were added to simplify the flow and the demo of the core functionality, focusing on FE. However, it is worth noting that, on cases where SEO and further server-based optimizations are required, additional routes could be added.
 * Data loading stub: A stub has been added as a data result and a timeout for 5 seconds implemented to simulate delays; this was made to simulate the data loading without exhausting the free credit calls given for the used API. This can be uncommented on the `./app/utils/crypto.ts` file.
+* HOC: A preference for some relevant HOC was made to focus on reusability and maintainability.
+* Potential implementation: An implementation for searching + adding additional coins has been thought of. However, in the interest of time, this was not eventually implemented.
 
 ## Relevant Credentials
 
