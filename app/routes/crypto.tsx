@@ -39,33 +39,36 @@ export default function Index() {
   const [loading, setLoading] = useState(true);
   const [errorLoading, setErrorLoading] = useState<string | null>(null);
 
-  useEffect(() => {
+  async function fetchData() {
     setLoading(true);
-    fetchCryptoData()
-      .then((data: any) => {
-        if (data) {
-          const storedOrder = loadFromLocalStorage("cryptoOrder");
-          if (storedOrder && storedOrder.length > 0) {
-            //const orderedIds = JSON.parse(storedOrder);
-            data = data.sort((a: any, b: any) => {
-              if (storedOrder.indexOf(a.id) > storedOrder.indexOf(b.id)) {
-                return 1;
-              }
-              if (storedOrder.indexOf(a.id) < storedOrder.indexOf(b.id)) {
-                return -1;
-              }
-              return 0;
-            });
-          }
-          setCryptos(data);
+    try {
+      let data: any = await fetchCryptoData();
+      if (data) {
+        const storedOrder = loadFromLocalStorage("cryptoOrder");
+        if (storedOrder && storedOrder.length > 0) {
+          //const orderedIds = JSON.parse(storedOrder);
+          data = data.sort((a: any, b: any) => {
+            if (storedOrder.indexOf(a.id) > storedOrder.indexOf(b.id)) {
+              return 1;
+            }
+            if (storedOrder.indexOf(a.id) < storedOrder.indexOf(b.id)) {
+              return -1;
+            }
+            return 0;
+          });
         }
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching crypto data:", error);
-        setLoading(false);
-        setErrorLoading("Error fetching crypto data");
-      });
+      }
+      setCryptos(data);
+    } catch (error: any) {
+      console.error("Error fetching crypto data:", error);
+      setLoading(false);
+      setErrorLoading(error?.message || "Error fetching crypto data");
+    }
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    fetchData();
   }, []);
 
   function handleDragEnd(event: any) {
@@ -106,11 +109,19 @@ export default function Index() {
           errorMessage={errorLoading ? new Error(errorLoading) : undefined}
         >
           <LoadingHOC isLoading={loading} message="Loading Crypto Data...">
-            <SearchBar
-              onChange={(newSearch) => {
-                setFilter({ ...filter, text: newSearch });
-              }}
-            />
+            <div className="flex items-center space-x-4">
+              <SearchBar
+                onChange={(newSearch) => {
+                  setFilter({ ...filter, text: newSearch });
+                }}
+              />
+              <button
+                onClick={() => fetchData()}
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              >
+                Refresh Data
+              </button>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
               <DndContext
                 collisionDetection={closestCenter}
