@@ -129,11 +129,11 @@ export default function Index() {
               >
                 <SortableContext
                   items={cryptos
-                    .filter(applyFilter(filter))
+                    ?.filter(applyFilter(filter))
                     .map((crypto) => crypto.id)}
                   strategy={verticalListSortingStrategy}
                 >
-                  {cryptos.filter(applyFilter(filter)).map((crypto) => (
+                  {cryptos?.filter(applyFilter(filter)).map((crypto) => (
                     <SortableSymbolCard
                       key={crypto.id}
                       id={crypto.id}

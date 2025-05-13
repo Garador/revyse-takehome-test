@@ -11,30 +11,30 @@ export async function fetchCryptoData() {
     const response = await fetch(
       `http://api.coinlayer.com/api/live?access_key=567722105e1a74c44d12d1ee5f20c71a&symbols=BCN,BCPT,BEE,BTC,BTCA,BURST,DAS,DIME,DNT,DOGE`
     );
-    const data = await response.json();
-
-    //const data = {
-    //  success: true,
-    //  terms: "https://coinlayer.com/terms",
-    //  privacy: "https://coinlayer.com/privacy",
-    //  timestamp: 1746744193,
-    //  target: "USD",
-    //  rates: {
-    //    BCN: 0.000106,
-    //    BCPT: 0.000926,
-    //    BEE: 0.000001,
-    //    BTC: 102704.45484,
-    //    BTCA: 0.00036,
-    //    BURST: 0.017348,
-    //    DAS: 0.937816,
-    //    DIME: 0.00003,
-    //    DNT: 0.0567,
-    //    DOGE: 0.194391,
-    //  },
-    //} as any;
+    let data = await response.json();
 
     if (!data.success) {
-      throw new Error(data.error?.info || "Failed to fetch crypto data");
+      console.error("Error fetching crypto data:", data);
+      //We fall back to the mock data
+      data = {
+        success: true,
+        terms: "https://coinlayer.com/terms",
+        privacy: "https://coinlayer.com/privacy",
+        timestamp: 1746744193,
+        target: "USD",
+        rates: {
+          BCN: 0.000106,
+          BCPT: 0.000926,
+          BEE: 0.000001,
+          BTC: 102704.45484,
+          BTCA: 0.00036,
+          BURST: 0.017348,
+          DAS: 0.937816,
+          DIME: 0.00003,
+          DNT: 0.0567,
+          DOGE: 0.194391,
+        },
+      } as any;
     }
 
     const formattedData = Object.keys(data.rates).map((symbol) => {
