@@ -1,40 +1,26 @@
-# Welcome to Remix!
+# Relevant notes of the rewrite
 
-- 📖 [Remix docs](https://remix.run/docs)
+# Error triggering
+To trigger the relevant error state from loading the currencies, use the following query parameter:
 
-## Development
+`throwError=true`
 
-Run the dev server:
+Example: http://localhost:5173/?throwError=true
 
-```shellscript
-npm run dev
-```
+# Setup instructions
+This can be run as-is using the following command: `npm run dev`.
+It can also be built by running: `npm run build` and then running `npm run start`.
 
-## Deployment
+# Notes on decisions or tradeoffs you made
+- An effort has been made to use Tailwind CSS classes instead of other types of styling.
+- Redux has been preserved to avoid prop drilling.
+- Firebase has been used to simplify the auth. flow.
+- An error boundary has been used to wrap the main error handling (handling errors via issues with the data loading) (`ErrorBoundary on _index.tsx`).
+- Async. data loading capabilities have been used to reload data without reloading the page itself (`revalidator.revalidate`) out of the back-end.
+- A guard component has been used to hide the "Watch" list as a simple guard functionality display.
+- Most of the previous capabilities have been preserved.
 
-First, build your app for production:
-
-```sh
-npm run build
-```
-
-Then run the app in production mode:
-
-```sh
-npm start
-```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-- `build/server`
-- `build/client`
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever css framework you prefer. See the [Vite docs on css](https://vitejs.dev/guide/features.html#css) for more information.
+# Relevant Credentials
+* email: azolotdev+test1@gmail.com password: 123123
+* email: azolotdev+test2@gmail.com password: 123123
+* email: azolotdev+test3@gmail.com password: 123123

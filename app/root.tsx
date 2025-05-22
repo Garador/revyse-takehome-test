@@ -8,6 +8,10 @@ import {
 import type { LinksFunction } from "@remix-run/node";
 
 import "./tailwind.css";
+import { FirebaseProvider } from "./lib/react/components/firebase/FirebaseProvider";
+import { Provider } from "react-redux";
+import { GeneralStore } from "./lib/react/components/redux/store";
+import { AuthProvider } from "./lib/react/components/auth/authProvider";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -32,9 +36,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
-        <ScrollRestoration />
-        <Scripts />
+        <Provider store={GeneralStore}>
+          <FirebaseProvider>
+            <AuthProvider>
+              {children}
+              <ScrollRestoration />
+              <Scripts />
+            </AuthProvider>
+          </FirebaseProvider>
+        </Provider>
       </body>
     </html>
   );
